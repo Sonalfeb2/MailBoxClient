@@ -19,16 +19,16 @@ function SignUp() {
 if(data.kind){
   console.log('User has successfully signed up.')
 }
-   emailInputRef.current.value('');
-   passInputRef.current.value('');
-   cpassInputRef.current.value('')
+   emailInputRef.current.value="";
+   passInputRef.current.value='';
+   cpassInputRef.current.value=''
 
   }
   return (
     < >
     <Card style={{ width: '19rem' }}  className="mx-auto mb-2 mt-5"  >
       <Card.Body>
-      <Card.Title > SignUp </Card.Title>    
+      <Card.Title > Sign Up </Card.Title>    
     <Form onSubmit={SubmitHandler}>
       <Form.Group className="mb-3" controlId="formGroupEmail">
         <Form.Label>Email address</Form.Label>

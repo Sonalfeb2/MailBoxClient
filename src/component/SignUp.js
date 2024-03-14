@@ -1,12 +1,21 @@
 import {Card,Form,Button,Alert} from 'react-bootstrap';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import AlertComponent from './AlertComponent';
+import { Link } from 'react-router-dom';
 function SignUp() {
   
   const emailInputRef = useRef();
   const passInputRef = useRef();
   const cpassInputRef = useRef();
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    status:null,
+    message:null,
+  })
+
   const SubmitHandler = async (e) =>{
    e.preventDefault();
+   if(passInputRef.current.value===cpassInputRef.current.value){
    const res = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD_Ru-yvMeeGWNsrOu9vYBNNjA6kMjvqLc',{
     method:'POST',
     body:JSON.stringify({
@@ -19,13 +28,22 @@ function SignUp() {
 if(data.kind){
   console.log('User has successfully signed up.')
 }
+   }
+   else{
+    
+    setShowAlert({show:true,status:'err',message:'Password should be match with confirm Password'})
+    setTimeout(()=>{
+      setShowAlert({show:false,status:'',message:''})
+    },3000)
+   }
    emailInputRef.current.value="";
    passInputRef.current.value='';
-   cpassInputRef.current.value=''
+   cpassInputRef.current.value='';
 
   }
   return (
-    < >
+    <div>
+    {showAlert.show && <AlertComponent status={showAlert.status} message={showAlert.message}/>}
     <Card style={{ width: '19rem' }}  className="mx-auto mb-2 mt-5"  >
       <Card.Body>
       <Card.Title > Sign Up </Card.Title>    
@@ -51,9 +69,9 @@ if(data.kind){
     </Card.Body>
     </Card>
     <Alert key='primary' variant='primary'style={{ width: '19rem' }}  className="mx-auto" >
-    Have an account ? Login
+    Have an account ? <Link to='/login'>Login</Link>
   </Alert>
-  </>
+  </div>
       
   );
 }

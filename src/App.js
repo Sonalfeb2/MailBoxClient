@@ -1,12 +1,36 @@
 import React from "react";
 import Header from "./layout/Header";
 import SignUp from "./component/SignUp";
+import Login from "./component/Login";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider
+} from "react-router-dom";
+import Home from "./component/Home";
 function App() {
+  const userId = localStorage.getItem('userId');
+  
+  const router = createBrowserRouter([{
+    path : '/',
+    element: userId ? <Header/> :<Navigate to='/signup' replace />,
+    children:[{
+      path : '/',
+      element: <Home/>
+    }]
+  },
+  {
+    path : '/login',
+    element: userId ? <Navigate to='/' replace /> :<Login/>
+  },
+  {
+    path : '/signup',
+    element: <SignUp/>
+  }
+  
+  ])
   return (
-    <div>
-     <Header/>
-     <SignUp/>
-    </div>
+    <RouterProvider router={router}/>
   );
 }
 

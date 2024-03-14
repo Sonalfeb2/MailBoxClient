@@ -2,8 +2,10 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
+import { Outlet } from "react-router-dom";
 function Header() {
   return (
+    <div>
     <Navbar expand="lg" variant='light'>
       <Container>
         <Navbar.Brand href="#home">Web Link</Navbar.Brand>
@@ -17,6 +19,8 @@ function Header() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <Outlet/>
+    </div>
   );
 }
 

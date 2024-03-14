@@ -1,4 +1,4 @@
-import { getByLabelText, render, screen } from '@testing-library/react';
+import {  render, screen } from '@testing-library/react';
 import SignUp from './SignUp';
 describe('SignUp Component',()=>{
 test('display SignUp Form Heading', () => {

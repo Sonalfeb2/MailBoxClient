@@ -54,6 +54,8 @@ function Login() {
     <div>
       {showAlert.show &&
         <AlertComponent
+          role='button'
+          name='alert'
           status={showAlert.status}
           message={showAlert.message}
         />}

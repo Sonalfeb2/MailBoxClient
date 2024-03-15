@@ -14,7 +14,6 @@ function Login() {
   const history = useNavigate(); //for navigation login to home
   const SubmitHandler = async e => {
     e.preventDefault();
-    console.log(emailInputRef.current.value);
 
     const res = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD_Ru-yvMeeGWNsrOu9vYBNNjA6kMjvqLc",
@@ -44,7 +43,7 @@ function Login() {
         setShowAlert({ show: false, status: "", message: "" });
       }, 3000);
       localStorage.setItem("userId", data.localId);
-       
+       localStorage.setItem("userEmail",data.email)
       emailInputRef.current.value = "";
       passInputRef.current.value = "";
       history('/')

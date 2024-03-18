@@ -36,6 +36,9 @@ function EmailEditor({ show, onHide }) {
       const data = await res.json();
       if (data.name) {
         handleAlert("success", "Email Has SuccessFully Sent");
+        receiverAddress.current.value='';
+        senderSubject.current.value='';
+        setContentState('')
         return;
       }
       handleAlert("err", "Email has failed");

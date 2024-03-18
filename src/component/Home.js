@@ -1,12 +1,15 @@
-import { Button } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import EmailEditor from "./EmailEditor";
 import { useState } from "react";
+import Inbox from "./Inbox";
 const Home = () => {
     
   const [show, setShow] = useState(false);
-  return <h1>Welcome to Mail Box - 
-    <Button variant="primary" onClick={() => setShow(true)}>Send a Mail</Button>
+  return <div>Welcome to Mail Box - 
+    <Button className="mx-2" variant="primary" onClick={() => setShow(true)}>Compose</Button>
+    <Button variant="success">Inbox</Button>
     <EmailEditor show={show} onHide={()=>setShow(false)}/>
-  </h1>;
+    <Inbox/>
+  </div>;
 };
 export default Home

@@ -1,4 +1,6 @@
 .wrapperClass { display: flex; flex-direction: column-reverse; }
 .height{
     min-height: 400px;
+    border: 1px solid rgb(236 232 232);
+    border-radius: 1%;
 }

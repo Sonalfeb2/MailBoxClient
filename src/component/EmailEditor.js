@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Form, Row, Col, Container } from "react-bootstrap";
 import AlertComponent from "./AlertComponent";
 import EditContainer from "./EditContainer";
-function EmailEditor({ show, onHide }) {
+function EmailEditor() {
   const receiverAddress = useRef();
   const senderSubject = useRef();
   const [contentState, setContentState] = useState("");
@@ -36,9 +36,9 @@ function EmailEditor({ show, onHide }) {
       const data = await res.json();
       if (data.name) {
         handleAlert("success", "Email Has SuccessFully Sent");
-        receiverAddress.current.value='';
-        senderSubject.current.value='';
-        setContentState('')
+        receiverAddress.current.value = "";
+        senderSubject.current.value = "";
+        setContentState("");
         return;
       }
       handleAlert("err", "Email has failed");
@@ -48,61 +48,35 @@ function EmailEditor({ show, onHide }) {
   };
 
   return (
-    <Modal
-      size="xl"
-      show={show}
-      onHide={onHide}
-      aria-labelledby="example-custom-modal-styling-title"
-    >
+    <Container>
       {showAlert.show &&
         <AlertComponent
           status={showAlert.status}
           message={showAlert.message}
         />}
       <Form onSubmit={handleSubmit}>
-        <Modal.Header closeButton className="pb-0">
-          <Modal.Title className="w-100">
-            <Form.Group as={Row}>
-              <Col sm="12">
-                <Form.Control
-                  className="border-0"
-                  type="email"
-                  placeholder="To"
-                  ref={receiverAddress}
-                  required
-                />
-              </Col>
-            </Form.Group>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Header className="pb-0">
-          <Modal.Title className="w-100">
-            <Form.Group as={Row}>
-              <Col sm="12">
-                <Form.Control
-                  type="text"
-                  placeholder="Subject"
-                  className="border-0"
-                  ref={senderSubject}
-                  required
-                />
-              </Col>
-            </Form.Group>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body size="lg">
-          <EditContainer handleContentState={e => setContentState(e)} />
-
-          {/* <Form.Control as="textarea" rows={12} className='border-0' placeholder='write your mail here...'/> */}
-        </Modal.Body>
-
-        <Modal.Footer style={{ justifyContent: "flex-start" }}>
-          <Button variant="primary" type="submit">
-            Send
-          </Button>
-        </Modal.Footer>
+        <Form.Group className="mb-3">
+          <Form.Control
+            type="email"
+            placeholder="To"
+            ref={receiverAddress}
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Control
+            type="text"
+            placeholder="Subject"
+            ref={senderSubject}
+            required
+          />
+        </Form.Group>
+        <EditContainer handleContentState={e => setContentState(e)} />
+        <Button variant="primary" type="submit">
+          Send
+        </Button>
       </Form>
-    </Modal>
+    </Container>
   );
 }
 

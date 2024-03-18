@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { Container,Table } from "react-bootstrap";
-
+import { Container, Table } from "react-bootstrap";
+import { InboxSliceActions } from "../store/inboxRedux";
+import { useDispatch, useSelector } from "react-redux";
+import "./Inbox.css";
 const Inbox = () => {
   const userEmail = localStorage.getItem("userEmail");
+  const MsgList = useSelector(state => state.inboxList.list);
+
+  const dispatch = useDispatch();
   const [notFound, setNotFound] = useState(false);
-  const [mails, setMail] = useState([]);
+  const [viewMsg, setView] = useState(null);
   const getdata = async () => {
     const arr = [];
     const res = await fetch(
@@ -14,36 +19,58 @@ const Inbox = () => {
     if (data.error) {
       setNotFound(true);
     } else {
-      for (let value of Object.values(data)) {
-        arr.push(value);
+      for (let [key, value] of Object.entries(data)) {
+        arr.push({ ...value, id: key });
       }
-      setMail(() => arr);
+      dispatch(InboxSliceActions.getList(arr));
     }
   };
   useEffect(() => {
     getdata();
   }, []);
-
+  const handleViewMsg = async e => {
+    await fetch(
+      `https://mailbox-client-41b43-default-rtdb.firebaseio.com/mails/${e.id}.json`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          read: true
+        })
+      }
+    );
+    getdata();
+    setView(() => e);
+  };
   return (
     <Container fluid="md">
-      {notFound && mails.length < 0
+      {notFound && MsgList.length < 0
         ? <p>No Messaged Found</p>
         : <Table>
-            <tbody>
-              {mails.map(mail =>
-                <tr>
-                  <td>
-                    {mail.from.split("@")[0]}
-                  </td>
-                  <td>
-                    {mail.subject}
-                  </td>
-                  <td>
-                    {mail.content}
-                  </td>
+            {viewMsg
+              ? <tr>
+                  {viewMsg.content}
                 </tr>
-              )}
-            </tbody>
+              : <tbody>
+                  {MsgList.map(mail =>
+                    <tr
+                      key={mail.id}
+                      onClick={() => {
+                        !mail.read && handleViewMsg(mail);
+                      }} /// unread msg call the function for mark read as true in db
+                    >
+                      {!mail.read && <td className="dot" />}
+                      <td>
+                        {mail.from.split("@")[0]}
+                      </td>
+                      <td>
+                        {mail.subject}
+                      </td>
+                      <td>
+                        {mail.content}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>}
           </Table>}
     </Container>
   );

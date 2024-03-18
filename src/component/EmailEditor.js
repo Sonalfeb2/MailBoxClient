@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Button, Form, Row, Col, Container } from "react-bootstrap";
+import { Button, Form, Container } from "react-bootstrap";
 import AlertComponent from "./AlertComponent";
 import EditContainer from "./EditContainer";
 function EmailEditor() {
@@ -24,7 +24,8 @@ function EmailEditor() {
         to: receiverAddress.current.value,
         subject: senderSubject.current.value,
         from: localStorage.getItem("userEmail"),
-        content: contentState
+        content: contentState,
+        read: false
       };
       const res = await fetch(
         "https://mailbox-client-41b43-default-rtdb.firebaseio.com/mails.json",

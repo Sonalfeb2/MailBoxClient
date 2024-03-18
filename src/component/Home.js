@@ -2,48 +2,39 @@ import { ListGroup, Row, Col, Container, Badge } from "react-bootstrap";
 import EmailEditor from "./EmailEditor";
 import { useState } from "react";
 import Inbox from "./Inbox";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { InboxSliceActions } from "../store/inboxRedux";
 const Home = () => {
   const [show, setShow] = useState({
-    email: false,
-    inbox: true,
-    unread: false,
+    inbox:true
   });
   const inboxLength = useSelector(state => state.inboxList.totalMsg);
-  const unreadLength = useSelector(state=>state.inboxList.unread)
+  const unreadLength = useSelector(state=>state.inboxList.unread);
+  const sideBarList = useSelector(state =>state.inboxList.sideBarList);
+  console.log(sideBarList)
+  const dispatch = useDispatch();
+  const handleUpdate = (list) =>{
+      const name = list.name
+      setShow({[name]:true})
+    dispatch(InboxSliceActions.updatedSideBarList({name : list.name}))
+  }
   return (
     <Container>
       Welcome to Mail Box -
       <Row>
         <Col md={2}>
           <ListGroup as="ul">
-            <ListGroup.Item
+            {sideBarList.map(list=><ListGroup.Item
               as="li"
-              active={show.email ? true : false}
-              onClick={() => setShow((prev)=>({email:true,unread:false, inbox: false}))}
+              active={list.show ? true : false}
+              onClick={() =>handleUpdate(list)}
             >
-              Compose
-            </ListGroup.Item>
-            <ListGroup.Item
-              as="li"
-              active={show.inbox ? true : false}
-              onClick={() => setShow((prev)=>({email:false,unread:false, inbox: true}))}
-            >
-              Inbox
+              {list.name} 
               <Badge pill bg="primary">
-                {inboxLength}
+                {list.name==='inbox' && inboxLength}
+                {list.name==='unread' && unreadLength}
               </Badge>
-            </ListGroup.Item>
-            <ListGroup.Item
-              as="li"
-              active={show.unread ? true : false}
-              onClick={() => setShow({email:false,unread:true, inbox: false})}
-            >
-              Unread
-              <Badge pill bg="secondary">
-                {unreadLength}
-              </Badge>
-            </ListGroup.Item>
+            </ListGroup.Item>)}
           </ListGroup>
         </Col>
         <Col>

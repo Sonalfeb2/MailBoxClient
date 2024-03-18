@@ -2,6 +2,6 @@
     margin-top: 8px;
     border-radius: 50%;
     height: 10px;
-    min-width: 5px;
+    max-width: 8px;
     background-color: blue;
 }

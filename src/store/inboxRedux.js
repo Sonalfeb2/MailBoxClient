@@ -5,7 +5,8 @@ const inboxSlice = createSlice({
     list: [],
     totalMsg: 0,
     unread: 0,
-    unreadList: []
+    unreadList: [],
+    sideBarList : [{name:'email',show:false},{name:'inbox',show:true},{name:'unread',show:false}]
   },
   reducers: {
     getList: (state, action) => {
@@ -13,6 +14,18 @@ const inboxSlice = createSlice({
       state.totalMsg = state.list.length
       state.unreadList = state.list.filter((data)=>data.read===false);
       state.unread = state.unreadList.length
+    },
+    updatedSideBarList: (state, action)=>{
+        
+       if(action.payload.name==="email"){
+        state.sideBarList =  [{name:'email',show:true},{name:'inbox',show:false},{name:'unread',show:false}]
+       }
+       if(action.payload.name==='inbox'){
+        state.sideBarList =  [{name:'email',showl:false},{name:'inbox',show:true},{name:'unread',show:false}]
+       }
+       if(action.payload.name==='unread'){
+        state.sideBarList =  [{name:'email',show:false},{name:'inbox',show:false},{name:'unread',show:true}]
+       }
     }
   }
 });

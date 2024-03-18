@@ -51,7 +51,11 @@ const Inbox = () => {
         : <Table>
             {viewMsg
               ? <tbody>
-                  <tr><td>{viewMsg.content}</td></tr>
+                  <tr>
+                    <td>
+                      {viewMsg.content}
+                    </td>
+                  </tr>
                 </tbody>
               : <tbody>
                   {MsgList.map(mail =>
@@ -59,7 +63,9 @@ const Inbox = () => {
                       key={mail.id}
                       onClick={() => handleViewMsg(mail)} /// unread msg call the function for mark read as true in db
                     >
-                      {!mail.read && <td><div className="dot"></div></td>}
+                      <td>
+                        {!mail.read && <div className="dot" />}
+                      </td>
                       <td>
                         {mail.from.split("@")[0]}
                       </td>

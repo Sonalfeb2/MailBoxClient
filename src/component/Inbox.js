@@ -29,16 +29,19 @@ const Inbox = () => {
     getdata();
   }, []);
   const handleViewMsg = async e => {
-    await fetch(
-      `https://mailbox-client-41b43-default-rtdb.firebaseio.com/mails/${e.id}.json`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({
-          read: true
-        })
-      }
-    );
-    getdata();
+    {
+      !e.read &&
+        (await fetch(
+          `https://mailbox-client-41b43-default-rtdb.firebaseio.com/mails/${e.id}.json`,
+          {
+            method: "PATCH",
+            body: JSON.stringify({
+              read: true
+            })
+          }
+        ));
+      getdata();
+    }
     setView(() => e);
   };
   return (
@@ -47,18 +50,16 @@ const Inbox = () => {
         ? <p>No Messaged Found</p>
         : <Table>
             {viewMsg
-              ? <tr>
-                  {viewMsg.content}
-                </tr>
+              ? <tbody>
+                  <tr><td>{viewMsg.content}</td></tr>
+                </tbody>
               : <tbody>
                   {MsgList.map(mail =>
                     <tr
                       key={mail.id}
-                      onClick={() => {
-                        !mail.read && handleViewMsg(mail);
-                      }} /// unread msg call the function for mark read as true in db
+                      onClick={() => handleViewMsg(mail)} /// unread msg call the function for mark read as true in db
                     >
-                      {!mail.read && <td className="dot" />}
+                      {!mail.read && <td><div className="dot"></div></td>}
                       <td>
                         {mail.from.split("@")[0]}
                       </td>

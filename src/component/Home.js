@@ -6,9 +6,11 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const [show, setShow] = useState({
     email: false,
-    inbox: false
+    inbox: true,
+    unread: false,
   });
   const inboxLength = useSelector(state => state.inboxList.totalMsg);
+  const unreadLength = useSelector(state=>state.inboxList.unread)
   return (
     <Container>
       Welcome to Mail Box -
@@ -18,18 +20,28 @@ const Home = () => {
             <ListGroup.Item
               as="li"
               active={show.email ? true : false}
-              onClick={() => setShow({ email: true, inbox: false })}
+              onClick={() => setShow((prev)=>({email:true,unread:false, inbox: false}))}
             >
               Compose
             </ListGroup.Item>
             <ListGroup.Item
               as="li"
               active={show.inbox ? true : false}
-              onClick={() => setShow({ email: false, inbox: true })}
+              onClick={() => setShow((prev)=>({email:false,unread:false, inbox: true}))}
             >
               Inbox
               <Badge pill bg="primary">
                 {inboxLength}
+              </Badge>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              active={show.unread ? true : false}
+              onClick={() => setShow({email:false,unread:true, inbox: false})}
+            >
+              Unread
+              <Badge pill bg="secondary">
+                {unreadLength}
               </Badge>
             </ListGroup.Item>
           </ListGroup>

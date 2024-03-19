@@ -5,7 +5,7 @@ export const fetchData = () => {
   return async dispatch => {
     try {
       const res = await fetch(
-        `https://mailbox-client-41b43-default-rtdb.firebaseio.com/mails.json?orderBy="to"&equalTo="${userEmail}"`
+        `https://mailbox-client-41b43-default-rtdb.firebaseio.com/receivers.json?orderBy="to"&equalTo="${userEmail}"`
       );
 
       if (!res.ok) {
@@ -22,11 +22,11 @@ export const fetchData = () => {
     }
   };
 };
-export const UpdateData = e => {
+export const UpdateData = e => { ///for unread
   return async dispatch => {
     try {
       const res = await fetch(
-        `https://mailbox-client-41b43-default-rtdb.firebaseio.com/mails/${e.id}.json`,
+        `https://mailbox-client-41b43-default-rtdb.firebaseio.com/receivers/${e.id}.json`,
         {
           method: "PATCH",
           body: JSON.stringify({

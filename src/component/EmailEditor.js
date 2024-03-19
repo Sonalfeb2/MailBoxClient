@@ -26,17 +26,26 @@ function EmailEditor() {
         subject: senderSubject.current.value,
         from: localStorage.getItem("userEmail"),
         content: contentState,
-        read: false
+        read: false,
+        date: new Date()
       };
       const res = await fetch(
-        "https://mailbox-client-41b43-default-rtdb.firebaseio.com/mails.json",
+        `https://mailbox-client-41b43-default-rtdb.firebaseio.com/receivers.json`,
         {
           method: "POST",
           body: JSON.stringify(obj)
         }
-      );
-      const data = await res.json();
-      if (data.name) {
+      )
+      const req = await fetch(
+        `https://mailbox-client-41b43-default-rtdb.firebaseio.com/senders.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(obj)
+        }
+      )
+      const receiver = await res.json();
+      const sender = await req.json();
+      if (receiver.name && sender.name) {
         handleAlert("success", "Email Has SuccessFully Sent");
         receiverAddress.current.value = "";
         senderSubject.current.value = "";

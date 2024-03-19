@@ -1,39 +1,39 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./editorStyle.css";
-
-class EditContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editorState: EditorState.createEmpty()
-    };
-  }
-
-  onEditorStateChange = editorState => {
-    this.setState({
+import { convertToRaw } from "draft-js";
+function EditContainer(props) {
+  const [state, setState] = useState({
+    editorState: EditorState.createEmpty()
+  });
+  const onEditorStateChange = editorState => {
+    setState({
       editorState
     });
+    var currentContent = editorState.getCurrentContent();
+    const obj = convertToRaw(currentContent);
+    props.handleContentState(obj.blocks[0].text);
   };
-  handleChange = e => {
-    this.setState(state => ({ ...state, content: e.blocks[0].text }));
-    this.props.handleContentState(this.state.content);
-  };
-
-  render() {
-    const { editorState } = this.state;
-    return (
-      <Editor
-        initialEditorState={editorState}
-        wrapperClassName="demo-wrapper wrapperClass"
-        editorClassName="demo-editor height"
-        onEditorStateChange={this.onEditorStateChange}
-        onChange={e => this.handleChange(e)}
-      />
-    );
-  }
+  useEffect(()=>{
+    if(props.isEmpty){
+      setState({
+        editorState: EditorState.createEmpty()
+      })
+      props.setEmpty();
+    }
+    return;
+  },[props])
+  return (
+    
+    <Editor
+      editorState={state.editorState}
+      wrapperClassName="demo-wrapper wrapperClass"
+      editorClassName="demo-editor height"
+      onEditorStateChange={e => onEditorStateChange(e)}
+    />
+  );
 }
 
 export default EditContainer;

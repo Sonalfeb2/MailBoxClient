@@ -6,6 +6,7 @@ function EmailEditor() {
   const receiverAddress = useRef();
   const senderSubject = useRef();
   const [contentState, setContentState] = useState("");
+  const [isEmpty, setIsEmpty] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const handleAlert = (status, message) => {
     setShowAlert({
@@ -40,6 +41,7 @@ function EmailEditor() {
         receiverAddress.current.value = "";
         senderSubject.current.value = "";
         setContentState("");
+        setIsEmpty(true)
         return;
       }
       handleAlert("err", "Email has failed");
@@ -72,7 +74,7 @@ function EmailEditor() {
             required
           />
         </Form.Group>
-        <EditContainer handleContentState={e => setContentState(e)} />
+        <EditContainer handleContentState={e => setContentState(e)} isEmpty={isEmpty} setEmpty={()=>setIsEmpty(!isEmpty)}/>
         <Button variant="primary" type="submit">
           Send
         </Button>

@@ -19,16 +19,16 @@ const inboxSlice = createSlice({
       state.totalMsg = state.list.length;
       state.unreadList = state.list.filter(data => data.read === false);
       state.unread = state.unreadList.length;
-      state.viewContent = { show: false };
     },
     updatedSideBarList: (state, action) => {
-      state.viewContent = {show:false}
+      
       if (action.payload.name === "email") {
         state.sideBarList = [
           { name: "email", show: true },
           { name: "inbox", show: false },
           { name: "unread", show: false }
         ];
+        state.viewContent = {show:false}
       }
       if (action.payload.name === "inbox") {
         state.sideBarList = [
@@ -36,6 +36,7 @@ const inboxSlice = createSlice({
           { name: "inbox", show: true },
           { name: "unread", show: false }
         ];
+        state.viewContent = {show:false}
       }
       if (action.payload.name === "unread") {
         state.sideBarList = [
@@ -43,6 +44,7 @@ const inboxSlice = createSlice({
           { name: "inbox", show: false },
           { name: "unread", show: true }
         ];
+        state.viewContent = {show:false}
       }
     },
     showViewContent: (state, action) => {

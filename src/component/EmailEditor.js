@@ -41,7 +41,7 @@ function EmailEditor() {
         receiverAddress.current.value = "";
         senderSubject.current.value = "";
         setContentState("");
-        setIsEmpty(true)
+        setIsEmpty(true);
         return;
       }
       handleAlert("err", "Email has failed");
@@ -74,7 +74,11 @@ function EmailEditor() {
             required
           />
         </Form.Group>
-        <EditContainer handleContentState={e => setContentState(e)} isEmpty={isEmpty} setEmpty={()=>setIsEmpty(!isEmpty)}/>
+        <EditContainer
+          handleContentState={e => setContentState(e)}
+          isEmpty={isEmpty}
+          setEmpty={() => setIsEmpty(!isEmpty)}
+        />
         <Button variant="primary" type="submit">
           Send
         </Button>

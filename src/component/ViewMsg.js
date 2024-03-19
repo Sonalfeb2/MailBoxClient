@@ -2,7 +2,7 @@ import { Card, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 const ViewMsg = () => {
-    const content = useSelector(state=>state.inboxList.viewContent)
+  const content = useSelector(state => state.inboxList.viewContent);
   return (
     <Card>
       <Card.Header>

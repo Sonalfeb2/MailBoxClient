@@ -16,17 +16,19 @@ function EditContainer(props) {
     const obj = convertToRaw(currentContent);
     props.handleContentState(obj.blocks[0].text);
   };
-  useEffect(()=>{
-    if(props.isEmpty){
-      setState({
-        editorState: EditorState.createEmpty()
-      })
-      props.setEmpty();
-    }
-    return;
-  },[props])
+  useEffect(
+    () => {
+      if (props.isEmpty) {
+        setState({
+          editorState: EditorState.createEmpty()
+        });
+        props.setEmpty();
+      }
+      return;
+    },
+    [props]
+  );
   return (
-    
     <Editor
       editorState={state.editorState}
       wrapperClassName="demo-wrapper wrapperClass"

@@ -43,18 +43,18 @@ function Login() {
         setShowAlert({ show: false, status: "", message: "" });
       }, 3000);
       localStorage.setItem("userId", data.localId);
-       localStorage.setItem("userEmail",data.email)
+      localStorage.setItem("userEmail", data.email);
       emailInputRef.current.value = "";
       passInputRef.current.value = "";
-      history('/')
+      history("/");
     }
   };
   return (
     <div>
       {showAlert.show &&
         <AlertComponent
-          role='button'
-          name='alert'
+          role="button"
+          name="alert"
           status={showAlert.status}
           message={showAlert.message}
         />}

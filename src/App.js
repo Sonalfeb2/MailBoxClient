@@ -9,29 +9,29 @@ import {
 } from "react-router-dom";
 import Home from "./component/Home";
 function App() {
-  const userId = localStorage.getItem('userId');
-  
-  const router = createBrowserRouter([{
-    path : '/',
-    element: userId ? <Header/> :<Navigate to='/signup' replace />,
-    children:[{
-      path : '/',
-      element: <Home/>
-    }]
-  },
-  {
-    path : '/login',
-    element: userId ? <Navigate to='/' replace /> :<Login/>
-  },
-  {
-    path : '/signup',
-    element: <SignUp/>
-  }
-  
-  ])
-  return (
-    <RouterProvider router={router}/>
-  );
+  const userId = localStorage.getItem("userId");
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: userId ? <Header /> : <Navigate to="/signup" replace />,
+      children: [
+        {
+          path: "/",
+          element: <Home />
+        }
+      ]
+    },
+    {
+      path: "/login",
+      element: userId ? <Navigate to="/" replace /> : <Login />
+    },
+    {
+      path: "/signup",
+      element: <SignUp />
+    }
+  ]);
+  return <RouterProvider router={router} />;
 }
 
 export default App;

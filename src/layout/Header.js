@@ -18,7 +18,8 @@ function Header() {
               <Nav.Link
                 href="/login"
                 onClick={() => {
-                  localStorage.clear("userId"); localStorage.clear("userEmail");
+                  localStorage.clear("userId");
+                  localStorage.clear("userEmail");
                 }}
               >
                 LogOut

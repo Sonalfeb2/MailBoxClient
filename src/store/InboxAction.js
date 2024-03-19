@@ -12,7 +12,7 @@ export const fetchData = () => {
         throw new Error("Failed Fetching Data");
       }
       const data = await res.json();
-    
+
       for (let [key, value] of Object.entries(data)) {
         arr.push({ ...value, id: key });
       }

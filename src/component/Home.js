@@ -4,6 +4,7 @@ import { useState } from "react";
 import Inbox from "./Inbox";
 import { useDispatch, useSelector } from "react-redux";
 import { InboxSliceActions } from "../store/inboxRedux";
+import Unread from "./UnRead";
 const Home = () => {
   const [show, setShow] = useState({
     inbox:true
@@ -40,6 +41,7 @@ const Home = () => {
         <Col>
           {show.email && <EmailEditor />}
           {show.inbox && <Inbox />}
+          {show.unread && <Unread/>}
         </Col>
       </Row>
     </Container>

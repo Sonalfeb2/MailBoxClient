@@ -3,20 +3,21 @@ import EmailEditor from "./EmailEditor";
 import { useState } from "react";
 import Inbox from "./Inbox";
 import { useDispatch, useSelector } from "react-redux";
-import { InboxSliceActions } from "../store/inboxRedux";
 import Unread from "./UnRead";
+import SentMail from "./SentMail";
+import { SideBarSliceActions } from "../store/SideBarReducer";
 const Home = () => {
   const [show, setShow] = useState({
     inbox: true
   });
   const inboxLength = useSelector(state => state.inboxList.totalMsg);
   const unreadLength = useSelector(state => state.inboxList.unread);
-  const sideBarList = useSelector(state => state.inboxList.sideBarList);
+  const sideBarList = useSelector(state => state.sideBarList.sideBarList);
   const dispatch = useDispatch();
   const handleUpdate = list => {
     const name = list.name;
     setShow({ [name]: true });
-    dispatch(InboxSliceActions.updatedSideBarList({ name: list.name }));
+    dispatch(SideBarSliceActions.updatedSideBarList({ name: list.name }));
   };
   return (
     <Container>
@@ -37,6 +38,7 @@ const Home = () => {
                   {list.name === "unread" && unreadLength}
                 </Badge>
               </ListGroup.Item>
+             
             )}
           </ListGroup>
         </Col>
@@ -44,6 +46,7 @@ const Home = () => {
           {show.email && <EmailEditor />}
           {show.inbox && <Inbox />}
           {show.unread && <Unread />}
+          {show.sentbox && <SentMail/>}
         </Col>
       </Row>
     </Container>

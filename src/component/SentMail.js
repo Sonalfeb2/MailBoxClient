@@ -1,20 +1,16 @@
 import { useEffect } from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData, UpdateData } from "../store/InboxAction";
-import "./Inbox.css";
-// import { InboxSliceActions } from "../store/inboxRedux";
+import { fetchData } from "../store/SentBoxAction";
 import ViewMsg from "./ViewMsg";
 import { SideBarSliceActions } from "../store/SideBarReducer";
-const Inbox = () => {
-  const MsgList = useSelector(state => state.inboxList.list);
+const SentMail = () => {
+  const MsgList = useSelector(state => state.sentBox.list);
 
   const viewContent = useSelector(state => state.sideBarList.viewContent);
   const dispatch = useDispatch();
   const handleViewMsg = async e => {
-    {
-      !e.read && dispatch(UpdateData(e));
-    }
+   
     dispatch(SideBarSliceActions.showViewContent(e));
   };
 
@@ -27,12 +23,15 @@ const Inbox = () => {
 
   const handleDelete = async e => {
     const res = await fetch(
-      `https://mailbox-client-41b43-default-rtdb.firebaseio.com/receivers/${e}.json`,
+      `https://mailbox-client-41b43-default-rtdb.firebaseio.com/senders/${e}.json`,
       {
         method: "DELETE"
       }
     );
     const data = await res.json();
+    if(data){
+        console.log('Data Deleted SuccessFully')
+    }
 
     dispatch(fetchData());
   };
@@ -51,10 +50,7 @@ const Inbox = () => {
                         /// unread msg call the function for mark read as true in db
                       >
                         <td>
-                          {!mail.read && <div className="dot" />}
-                        </td>
-                        <td>
-                          {mail.from.split("@")[0]}
+                          {mail.to.split("@")[0]}
                         </td>
                         <td onClick={() => handleViewMsg(mail)}>
                           {mail.subject}
@@ -90,4 +86,4 @@ const Inbox = () => {
     </Container>
   );
 };
-export default Inbox;
+export default SentMail;

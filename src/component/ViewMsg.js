@@ -1,12 +1,18 @@
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 const ViewMsg = () => {
-  const content = useSelector(state => state.inboxList.viewContent);
+  const content = useSelector(state => state.sideBarList.viewContent);
   return (
     <Card>
       <Card.Header>
-        from- {content.from}
+        {content.active[0].name === "sentbox"
+          ? <p>
+              To:{content.to}
+            </p>
+          : <p>
+              from- {content.from}
+            </p>}
       </Card.Header>
       <Card.Body>
         <Card.Title>
@@ -15,12 +21,15 @@ const ViewMsg = () => {
         <Card.Text>
           {content.content}
         </Card.Text>
-        <Button variant="primary" size="xs">
-          R
-        </Button>
-        <Button variant="primary" size="xs">
-          F
-        </Button>
+        {content.active[0].name !== "sentbox" &&
+          <Row>
+            <Button variant="primary" size="xs">
+              R
+            </Button>
+            <Button variant="primary" size="xs">
+              F
+            </Button>
+          </Row>}
       </Card.Body>
     </Card>
   );

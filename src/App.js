@@ -8,13 +8,15 @@ import {
   RouterProvider
 } from "react-router-dom";
 import Home from "./component/Home";
+import { useSelector } from "react-redux";
 function App() {
-  const userId = localStorage.getItem("userId");
+  
+  const userId = useSelector(state=>state.authSlice.userId);
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: userId ? <Header /> : <Navigate to="/signup" replace />,
+      element: userId ? <Header /> : <Navigate to="/login" replace />,
       children: [
         {
           path: "/",

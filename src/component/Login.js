@@ -2,8 +2,10 @@ import { Card, Form, Button, Alert } from "react-bootstrap";
 import { useRef, useState } from "react";
 import AlertComponent from "./AlertComponent";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AuthReducerAction } from "../store/AuthReducer";
 function Login() {
+  const dispatch = useDispatch();
   const emailInputRef = useRef(); //for taking input values
   const passInputRef = useRef();
   const [showAlert, setShowAlert] = useState({
@@ -11,7 +13,7 @@ function Login() {
     status: null,
     message: null
   }); //show user credentials is valid or not through Alert
-  const history = useNavigate(); //for navigation login to home
+  
   const SubmitHandler = async e => {
     e.preventDefault();
 
@@ -42,11 +44,10 @@ function Login() {
       setTimeout(() => {
         setShowAlert({ show: false, status: "", message: "" });
       }, 3000);
-      localStorage.setItem("userId", data.localId);
-      localStorage.setItem("userEmail", data.email);
       emailInputRef.current.value = "";
       passInputRef.current.value = "";
-      history("/");
+      dispatch(AuthReducerAction.addUser({userId : data.localId, userEmail: data.email}))
+   
     }
   };
   return (

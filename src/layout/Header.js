@@ -1,9 +1,12 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { useDispatch } from "react-redux";
 
 import { Outlet } from "react-router-dom";
+import { AuthReducerAction } from "../store/AuthReducer";
 function Header() {
+  const dispatch = useDispatch();
   return (
     <div>
       <Navbar expand="lg" variant="light">
@@ -16,10 +19,8 @@ function Header() {
               <Nav.Link href="#about">Products</Nav.Link>
               <Nav.Link href="#about">AboutUs</Nav.Link>
               <Nav.Link
-                href="/login"
                 onClick={() => {
-                  localStorage.clear("userId");
-                  localStorage.clear("userEmail");
+                  dispatch(AuthReducerAction.logOutUser())
                 }}
               >
                 LogOut

@@ -1,23 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData, UpdateData } from "../store/InboxAction";
 import "./Inbox.css";
 import { InboxSliceActions } from "../store/inboxRedux";
 import ViewMsg from "./ViewMsg";
+import { CheckBoxReducerAction } from "../store/CheckBoxReducer";
 const Inbox = () => {
   const MsgList = useSelector(state => state.inboxList.list);
-  const dispatch = useDispatch();
+
   const viewContent = useSelector(state => state.inboxList.viewContent);
-  const [isCheckAll, setIsCheckAll] = useState(false);
+  const checkedStore = useSelector(state => state.checkInboxMsg.checked);
+  const dispatch = useDispatch();
+  const isCheckAll = useSelector(state => state.checkInboxMsg.isCheckAll);
   const handleViewMsg = async e => {
     {
       !e.read && dispatch(UpdateData(e));
     }
     dispatch(InboxSliceActions.showViewContent(e));
   };
-  const handleSelectAll = () => {
-    setIsCheckAll(!isCheckAll);
+  const handleSelectAll = e => {
+    dispatch(
+      CheckBoxReducerAction.handleCheckedAll({
+        checked: e.target.checked,
+        list: MsgList
+      })
+    );
   };
   useEffect(
     () => {
@@ -25,7 +33,18 @@ const Inbox = () => {
     },
     [dispatch]
   );
+  const handleChecked = e => {
+    dispatch(
+      CheckBoxReducerAction.handleChecked({
+        id: e.target.id,
+        checked: e.target.checked
+      })
+    );
+  };
+const handleDelete = async() =>{
+  console.log(checkedStore)
 
+}
   return (
     <Container fluid="md">
       {viewContent.show
@@ -36,18 +55,18 @@ const Inbox = () => {
               : <Table>
                   <thead>
                     <th>
-                      <div class="custom-control custom-checkbox">
+                      <div className="custom-control custom-checkbox">
                         <input
                           type="checkbox"
-                          class="custom-control-input"
+                          className="custom-control-input"
                           id="selectAll"
-                          onChange={handleSelectAll}
-                          
-                        /> Select All
+                          onChange={e => handleSelectAll(e)}
+                        />{" "}
+                        Select All
                       </div>
                     </th>
                     <th>
-                      <Button variant="danger">Delete</Button>
+                      <Button variant="danger" onClick={handleDelete}>Delete</Button>
                     </th>
                   </thead>
                   <tbody>
@@ -57,18 +76,19 @@ const Inbox = () => {
                         /// unread msg call the function for mark read as true in db
                       >
                         <td>
-                          <div class="custom-control custom-checkbox">
+                          <div className="custom-control custom-checkbox">
                             {isCheckAll
                               ? <input
                                   type="checkbox"
-                                  class="custom-control-input"
+                                  className="custom-control-input"
                                   id={mail.id}
                                   checked
                                 />
                               : <input
                                   type="checkbox"
-                                  class="custom-control-input"
+                                  className="custom-control-input"
                                   id={mail.id}
+                                  onChange={e => handleChecked(e)}
                                 />}
                           </div>
                         </td>

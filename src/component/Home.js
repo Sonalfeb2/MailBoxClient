@@ -24,8 +24,9 @@ const Home = () => {
       <Row>
         <Col md={2}>
           <ListGroup as="ul">
-            {sideBarList.map(list =>
+            {sideBarList.map((list, index) =>
               <ListGroup.Item
+                key={index}
                 as="li"
                 active={list.show ? true : false}
                 onClick={() => handleUpdate(list)}

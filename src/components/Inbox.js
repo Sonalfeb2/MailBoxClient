@@ -1,13 +1,13 @@
-
 import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {  UpdateData } from "../store/InboxAction";
+import { UpdateData } from "../store/inbox-action";
 import "./Inbox.css";
 import ViewMsg from "./ViewMsg";
-import { SideBarSliceActions } from "../store/SideBarReducer";
+import { SideBarSliceActions } from "../store/sidebar-reducer";
+import { DateTime } from "luxon";
 
 const Inbox = () => {
-   const MsgList = useSelector(state => state.inboxList.list);
+  const msgList = useSelector(state => state.inboxList.list);
   const viewContent = useSelector(state => state.sideBarList.viewContent);
   const dispatch = useDispatch();
   const handleViewMsg = async e => {
@@ -33,11 +33,11 @@ const Inbox = () => {
       {viewContent.show
         ? <ViewMsg />
         : <Container>
-            {MsgList.length <= 0
+            {msgList.length <= 0
               ? <p>No Messaged Found</p>
               : <Table>
                   <tbody>
-                    {MsgList.map(mail =>
+                    {msgList.map(mail =>
                       <tr
                         key={mail.id}
                         /// unread msg call the function for mark read as true in db
@@ -55,16 +55,9 @@ const Inbox = () => {
                           {mail.content}
                         </td>
                         <td>
-                          {new Date(mail.date).getDate() +
-                            "/" +
-                            new Date(mail.date).getMonth() +
-                            "/" +
-                            new Date(mail.date).getFullYear() +
-                            "/"}
-                          -{" "}
-                          {new Date(mail.date).getHours() +
-                            ":" +
-                            new Date(mail.date).getMinutes()}
+                          {DateTime.fromISO(mail.date).toFormat(
+                            "MMMM dd, yyyy"
+                          )}
                         </td>
                         <td>
                           <Button

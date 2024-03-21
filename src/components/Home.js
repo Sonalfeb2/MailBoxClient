@@ -5,7 +5,7 @@ import Inbox from "./Inbox";
 import { useDispatch, useSelector } from "react-redux";
 import Unread from "./UnRead";
 import SentMail from "./SentMail";
-import { SideBarSliceActions } from "../store/SideBarReducer";
+import { SideBarSliceActions } from "../store/sidebar-reducer";
 const Home = () => {
   const [show, setShow] = useState({
     inbox: true
@@ -21,7 +21,6 @@ const Home = () => {
   };
   return (
     <Container>
-      Welcome to Mail Box -
       <Row>
         <Col md={2}>
           <ListGroup as="ul">
@@ -34,8 +33,8 @@ const Home = () => {
               >
                 {list.name}
                 <Badge pill bg="primary">
-                  {list.name === "inbox" && inboxLength}
-                  {list.name === "unread" && unreadLength}
+                  {list.name === "Inbox" && inboxLength}
+                  {list.name === "Unread" && unreadLength}
                 </Badge>
               </ListGroup.Item>
              
@@ -43,10 +42,10 @@ const Home = () => {
           </ListGroup>
         </Col>
         <Col>
-          {show.email && <EmailEditor />}
-          {show.inbox && <Inbox />}
-          {show.unread && <Unread />}
-          {show.sentbox && <SentMail/>}
+          {show.Compose && <EmailEditor />}
+          {show.Inbox && <Inbox />}
+          {show.Unread && <Unread />}
+          {show.Sentbox && <SentMail/>}
         </Col>
       </Row>
     </Container>

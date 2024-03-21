@@ -11,9 +11,9 @@ describe("Login component", () => {
   });
   test("Alert not rendered", () => {
     render(<Login />);
-    const AlertButton = screen.getByRole("button", {
+    const alertButton = screen.getByRole("button", {
       name: "alert"
     });
-    expect(AlertButton).not.toBeInTheDocument();
+    expect(alertButton).not.toBeInTheDocument();
   });
 });

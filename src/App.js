@@ -1,15 +1,15 @@
 import React from "react";
-import Header from "./layout/Header";
-import SignUp from "./component/SignUp";
-import Login from "./component/Login";
+import Header from "./components/layout/Header";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider
 } from "react-router-dom";
-import Home from "./component/Home";
+import Home from "./components/Home";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "./store/InboxAction";
+import { fetchData } from "./store/inbox-action";
 function App() {
   const dispatch = useDispatch();
   setInterval(() => {
@@ -36,7 +36,7 @@ function App() {
     {
       path: "/signup",
       element: <SignUp />
-    }
+    },
   ]);
   return <RouterProvider router={router} />;
 }

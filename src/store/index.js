@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import inboxRedux from "./inboxRedux";
-import DeleteReducer from "./CheckBoxReducer";
-import SentBoxReducer from "./SentBoxReducer";
-import SideBarReducer from "./SideBarReducer";
-import AuthReducer from "./AuthReducer";
+import inboxRedux from "./inbox-reducer";
+import DeleteReducer from "./checkbox-reducer";
+import SentBoxReducer from "./sentbox-reducer";
+import SideBarReducer from "./sidebar-reducer";
+import AuthReducer from "./auth-reducer";
 const store = configureStore({
   reducer: {
     inboxList: inboxRedux,

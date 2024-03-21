@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchSentData } from "../store/SentBoxAction";
+import { fetchSentData } from "../store/sentbox-action";
 
 const useCustomHook = (url, props) => {
   const dispatch = useDispatch();

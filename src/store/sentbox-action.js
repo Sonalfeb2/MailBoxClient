@@ -1,4 +1,4 @@
-import { SentBoxSliceActions } from "./SentBoxReducer";
+import { SentBoxSliceActions } from "./sentbox-reducer";
 export const fetchSentData = () => {
   const arr = [];
   const userEmail = localStorage.getItem("userEmail");

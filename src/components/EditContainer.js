@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import "./editorStyle.css";
+import "./EditorStyle.css";
 import { convertToRaw } from "draft-js";
 function EditContainer(props) {
   const [state, setState] = useState({

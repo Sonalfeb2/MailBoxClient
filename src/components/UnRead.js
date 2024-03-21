@@ -1,8 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Table } from "react-bootstrap";
-import { UpdateData } from "../store/InboxAction";
+import { UpdateData } from "../store/inbox-action";
 import ViewMsg from "./ViewMsg";
-import { SideBarSliceActions } from "../store/SideBarReducer";
+import { SideBarSliceActions } from "../store/sidebar-reducer";
+import { DateTime } from "luxon";
+
 const Unread = () => {
   const dispatch = useDispatch();
   const unreadMsgs = useSelector(state => state.inboxList.unreadList);
@@ -13,6 +15,7 @@ const Unread = () => {
     }
     dispatch(SideBarSliceActions.showViewContent(e));
   };
+  console.log(unreadMsgs);
   return (
     <Container>
       {viewContent.show
@@ -24,13 +27,16 @@ const Unread = () => {
                 : unreadMsgs.map(msg =>
                     <tr onClick={() => handleViewMsg(msg)} key={msg.id}>
                       <td>
-                        {msg.from.split("@")[0]}
+                        {msg.to.split("@")[0]}
                       </td>
                       <td>
                         {msg.subject}
                       </td>
                       <td>
                         {msg.content}
+                      </td>
+                      <td>
+                        {DateTime.fromISO(msg.date).toFormat("MMMM dd, yyyy")}
                       </td>
                     </tr>
                   )}

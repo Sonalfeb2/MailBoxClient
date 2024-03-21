@@ -1,4 +1,4 @@
-import { InboxSliceActions } from "./inboxRedux";
+import { InboxSliceActions } from "./inbox-reducer";
 export const fetchData = () => {
   const arr = [];
   const userEmail = localStorage.getItem("userEmail");

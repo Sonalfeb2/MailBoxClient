@@ -1,21 +1,22 @@
 // import { useEffect } from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSentData } from "../store/SentBoxAction";
+import { fetchSentData } from "../store/sentbox-action";
 import ViewMsg from "./ViewMsg";
-import { SideBarSliceActions } from "../store/SideBarReducer";
+import { SideBarSliceActions } from "../store/sidebar-reducer";
 import useCustomHook from "./UseCustomHook";
+import { DateTime } from "luxon";
+
 const SentMail = () => {
-   const MsgList = useSelector(state => state.sentBox.list);
+  const MsgList = useSelector(state => state.sentBox.list);
 
   const viewContent = useSelector(state => state.sideBarList.viewContent);
   const dispatch = useDispatch();
   const handleViewMsg = async e => {
-   
     dispatch(SideBarSliceActions.showViewContent(e));
   };
-  const [data] = useCustomHook('sentboxFetchData'); //custom hook
-  console.log(data)
+  const [data] = useCustomHook("sentboxFetchData"); //custom hook
+  console.log(data);
   // useEffect(
   //   () => {
   //     dispatch(fetchData());
@@ -31,8 +32,8 @@ const SentMail = () => {
       }
     );
     const data = await res.json();
-    if(data){
-        console.log('Data Deleted SuccessFully')
+    if (data) {
+      console.log("Data Deleted SuccessFully");
     }
 
     dispatch(fetchSentData());
@@ -61,16 +62,9 @@ const SentMail = () => {
                           {mail.content}
                         </td>
                         <td>
-                          {new Date(mail.date).getDate() +
-                            "/" +
-                            new Date(mail.date).getMonth() +
-                            "/" +
-                            new Date(mail.date).getFullYear() +
-                            "/"}
-                          -{" "}
-                          {new Date(mail.date).getHours() +
-                            ":" +
-                            new Date(mail.date).getMinutes()}
+                          {DateTime.fromISO(mail.date).toFormat(
+                            "MMMM dd, yyyy"
+                          )}
                         </td>
                         <td>
                           <Button

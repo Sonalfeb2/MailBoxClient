@@ -8,7 +8,7 @@ import SentMail from "./SentMail";
 import { SideBarSliceActions } from "../store/sidebar-reducer";
 const Home = () => {
   const [show, setShow] = useState({
-    inbox: true
+    Inbox: true
   });
   const inboxLength = useSelector(state => state.inboxList.totalMsg);
   const unreadLength = useSelector(state => state.inboxList.unread);
@@ -31,8 +31,8 @@ const Home = () => {
                 active={list.show ? true : false}
                 onClick={() => handleUpdate(list)}
               >
-                {list.name}
-                <Badge pill bg="primary">
+                {list.name}{" "}
+                <Badge pill bg="secondary">
                   {list.name === "Inbox" && inboxLength}
                   {list.name === "Unread" && unreadLength}
                 </Badge>

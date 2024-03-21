@@ -17,7 +17,7 @@ function Header() {
             <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>
               <Nav.Link href="#about">Products</Nav.Link>
-              <Nav.Link href="#about">Aboutus</Nav.Link>
+              <Nav.Link href="#about">About Us</Nav.Link>
               <Nav.Link
                 onClick={() => {
                   dispatch(AuthReducerAction.logOutUser())

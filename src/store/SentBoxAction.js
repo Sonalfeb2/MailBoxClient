@@ -1,5 +1,5 @@
 import { SentBoxSliceActions } from "./SentBoxReducer";
-export const fetchData = () => {
+export const fetchSentData = () => {
   const arr = [];
   const userEmail = localStorage.getItem("userEmail");
   return async dispatch => {

@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "../store/SentBoxAction";
+import { fetchSentData } from "../store/SentBoxAction";
 import ViewMsg from "./ViewMsg";
 import { SideBarSliceActions } from "../store/SideBarReducer";
+import useCustomHook from "./UseCustomHook";
 const SentMail = () => {
-  const MsgList = useSelector(state => state.sentBox.list);
+   const MsgList = useSelector(state => state.sentBox.list);
 
   const viewContent = useSelector(state => state.sideBarList.viewContent);
   const dispatch = useDispatch();
@@ -13,13 +14,14 @@ const SentMail = () => {
    
     dispatch(SideBarSliceActions.showViewContent(e));
   };
-
-  useEffect(
-    () => {
-      dispatch(fetchData());
-    },
-    [dispatch]
-  );
+  const [data] = useCustomHook('sentboxFetchData'); //custom hook
+  console.log(data)
+  // useEffect(
+  //   () => {
+  //     dispatch(fetchData());
+  //   },
+  //   [dispatch]
+  // );
 
   const handleDelete = async e => {
     const res = await fetch(
@@ -33,7 +35,7 @@ const SentMail = () => {
         console.log('Data Deleted SuccessFully')
     }
 
-    dispatch(fetchData());
+    dispatch(fetchSentData());
   };
   return (
     <Container fluid="md">

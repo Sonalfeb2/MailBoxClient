@@ -22,7 +22,7 @@ const Unread = () => {
               {unreadMsgs.length <= 0
                 ? <p>No Messaged Found</p>
                 : unreadMsgs.map(msg =>
-                    <tr onClick={() => handleViewMsg(msg)}>
+                    <tr onClick={() => handleViewMsg(msg)} key={msg.id}>
                       <td>
                         {msg.from.split("@")[0]}
                       </td>

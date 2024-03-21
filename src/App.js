@@ -14,7 +14,7 @@ function App() {
   const dispatch = useDispatch();
   setInterval(() => {
     dispatch(fetchData());
-  }, 4000);
+  }, 2000);
 
   const userId = useSelector(state => state.authSlice.userId);
 

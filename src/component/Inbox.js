@@ -1,14 +1,13 @@
-import { useEffect } from "react";
+
 import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData, UpdateData } from "../store/InboxAction";
+import {  UpdateData } from "../store/InboxAction";
 import "./Inbox.css";
-// import { InboxSliceActions } from "../store/inboxRedux";
 import ViewMsg from "./ViewMsg";
 import { SideBarSliceActions } from "../store/SideBarReducer";
-const Inbox = () => {
-  const MsgList = useSelector(state => state.inboxList.list);
 
+const Inbox = () => {
+   const MsgList = useSelector(state => state.inboxList.list);
   const viewContent = useSelector(state => state.sideBarList.viewContent);
   const dispatch = useDispatch();
   const handleViewMsg = async e => {
@@ -18,13 +17,6 @@ const Inbox = () => {
     dispatch(SideBarSliceActions.showViewContent(e));
   };
 
-  useEffect(
-    () => {
-      dispatch(fetchData());
-    },
-    [dispatch]
-  );
-
   const handleDelete = async e => {
     const res = await fetch(
       `https://mailbox-client-41b43-default-rtdb.firebaseio.com/receivers/${e}.json`,
@@ -32,9 +24,9 @@ const Inbox = () => {
         method: "DELETE"
       }
     );
-    const data = await res.json();
+    await res.json();
 
-    dispatch(fetchData());
+    // dispatch(fetchData());
   };
   return (
     <Container fluid="md">

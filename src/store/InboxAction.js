@@ -22,7 +22,7 @@ export const fetchData = () => {
     }
   };
 };
-export const UpdateData = e => { ///for unread
+export const UpdateData = e => {
   return async dispatch => {
     try {
       const res = await fetch(

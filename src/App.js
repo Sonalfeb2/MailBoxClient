@@ -8,10 +8,15 @@ import {
   RouterProvider
 } from "react-router-dom";
 import Home from "./component/Home";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "./store/InboxAction";
 function App() {
-  
-  const userId = useSelector(state=>state.authSlice.userId);
+  const dispatch = useDispatch();
+  setInterval(() => {
+    dispatch(fetchData());
+  }, 4000);
+
+  const userId = useSelector(state => state.authSlice.userId);
 
   const router = createBrowserRouter([
     {

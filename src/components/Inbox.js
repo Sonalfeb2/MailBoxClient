@@ -5,6 +5,7 @@ import "./Inbox.css";
 import ViewMsg from "./ViewMsg";
 import { SideBarSliceActions } from "../store/sidebar-reducer";
 import { DateTime } from "luxon";
+import 'font-awesome/css/font-awesome.min.css';
 
 const Inbox = () => {
   const msgList = useSelector(state => state.inboxList.list);
@@ -61,10 +62,10 @@ const Inbox = () => {
                         </td>
                         <td>
                           <Button
-                            variant="danger"
+                            variant="secondary"
                             onClick={() => handleDelete(mail.id)}
                           >
-                            Delete
+                            <i className="fa fa-duotone fa-trash"></i>
                           </Button>
                         </td>
                       </tr>

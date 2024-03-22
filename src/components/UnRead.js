@@ -23,7 +23,7 @@ const Unread = () => {
         : <Table>
             <tbody>
               {unreadMsgs.length <= 0
-                ? <p>No Messaged Found</p>
+                ? <tr><td>No Unread Messages</td></tr>
                 : unreadMsgs.map(msg =>
                     <tr onClick={() => handleViewMsg(msg)} key={msg.id}>
                       <td>

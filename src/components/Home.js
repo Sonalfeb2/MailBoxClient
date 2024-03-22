@@ -1,4 +1,11 @@
-import { ListGroup, Row, Col, Container, Badge } from "react-bootstrap";
+import {
+  ListGroup,
+  Row,
+  Col,
+  Container,
+  Badge,
+  ListGroupItem
+} from "react-bootstrap";
 import EmailEditor from "./EmailEditor";
 import { useState } from "react";
 import Inbox from "./Inbox";
@@ -20,32 +27,36 @@ const Home = () => {
     dispatch(SideBarSliceActions.updatedSideBarList({ name: list.name }));
   };
   return (
-    <Container>
-      <Row>
+    <Container style={{height:'100vh'}}>
+      <Row className="h-100">
         <Col md={2}>
-          <ListGroup as="ul">
+          <ListGroup as="ul" className="h-100">
             {sideBarList.map((list, index) =>
               <ListGroup.Item
+                className="d-flex justify-content-between align-items-start "
                 key={index}
                 as="li"
                 active={list.show ? true : false}
                 onClick={() => handleUpdate(list)}
               >
-                {list.name}{" "}
+                <div className="ms-2 me-auto">
+                  {list.name}
+                </div>
+
                 <Badge pill bg="secondary">
                   {list.name === "Inbox" && inboxLength}
                   {list.name === "Unread" && unreadLength}
                 </Badge>
               </ListGroup.Item>
-             
             )}
+            <ListGroupItem className="h-100" />
           </ListGroup>
         </Col>
         <Col>
           {show.Compose && <EmailEditor />}
           {show.Inbox && <Inbox />}
           {show.Unread && <Unread />}
-          {show.Sentbox && <SentMail/>}
+          {show.Sentbox && <SentMail />}
         </Col>
       </Row>
     </Container>

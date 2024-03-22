@@ -6,6 +6,7 @@ import ViewMsg from "./ViewMsg";
 import { SideBarSliceActions } from "../store/sidebar-reducer";
 import useCustomHook from "./UseCustomHook";
 import { DateTime } from "luxon";
+import 'font-awesome/css/font-awesome.min.css';
 
 const SentMail = () => {
   const MsgList = useSelector(state => state.sentBox.list);
@@ -68,10 +69,10 @@ const SentMail = () => {
                         </td>
                         <td>
                           <Button
-                            variant="danger"
+                            variant="secondary"
                             onClick={() => handleDelete(mail.id)}
                           >
-                            Delete
+                            <i className="fa fa-duotone fa-trash"></i>
                           </Button>
                         </td>
                       </tr>

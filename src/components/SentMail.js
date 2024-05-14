@@ -27,7 +27,7 @@ const SentMail = () => {
 
   const handleDelete = async e => {
     const res = await fetch(
-      `https://mailbox-client-41b43-default-rtdb.firebaseio.com/senders/${e}.json`,
+      `https://mail-box-80520-default-rtdb.firebaseio.com/senders/${e}.json`,
       {
         method: "DELETE"
       }

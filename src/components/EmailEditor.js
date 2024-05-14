@@ -30,14 +30,14 @@ function EmailEditor() {
         date: new Date()
       };
       const res = await fetch(
-        `https://mailbox-client-41b43-default-rtdb.firebaseio.com/receivers.json`,
+        `https://mail-box-80520-default-rtdb.firebaseio.com/receivers.json`,
         {
           method: "POST",
           body: JSON.stringify(obj)
         }
       )
       const req = await fetch(
-        `https://mailbox-client-41b43-default-rtdb.firebaseio.com/senders.json`,
+        `https://mail-box-80520-default-rtdb.firebaseio.com/senders.json`,
         {
           method: "POST",
           body: JSON.stringify(obj)

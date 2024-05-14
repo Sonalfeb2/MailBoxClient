@@ -16,7 +16,7 @@ function SignUp() {
     e.preventDefault();
     if (passInputRef.current.value === cpassInputRef.current.value) {
       const res = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD_Ru-yvMeeGWNsrOu9vYBNNjA6kMjvqLc",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDra93LGyMBC_ViSwC8RQHlNQ2xbD2MYKA",
         {
           method: "POST",
           body: JSON.stringify({

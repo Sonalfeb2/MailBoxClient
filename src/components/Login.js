@@ -18,7 +18,7 @@ function Login() {
     e.preventDefault();
 
     const res = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD_Ru-yvMeeGWNsrOu9vYBNNjA6kMjvqLc",
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDra93LGyMBC_ViSwC8RQHlNQ2xbD2MYKA",
       {
         method: "POST",
         body: JSON.stringify({

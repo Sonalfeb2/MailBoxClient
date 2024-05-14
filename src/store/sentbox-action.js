@@ -5,7 +5,7 @@ export const fetchSentData = () => {
   return async dispatch => {
     try {
       const res = await fetch(
-        `https://mailbox-client-41b43-default-rtdb.firebaseio.com/senders.json?orderBy="from"&equalTo="${userEmail}"`
+        `https://mail-box-80520-default-rtdb.firebaseio.com/senders.json?orderBy="from"&equalTo="${userEmail}"`
       );
 
       if (!res.ok) {
